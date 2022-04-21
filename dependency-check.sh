@@ -11,7 +11,7 @@ for artifact in $EXCLUDE; do
 done
 
 if [ -z "${DIRECTORY}" ]; then
-    DIRECTORY="."
+    DIRECTORY=". $(find . -name deps.edn | xargs dirname | tr '\n' ' ')"
 fi
 
 DIRECTORIES=""
