@@ -27,8 +27,7 @@ done
 PREFETCH=$(clojure -Stree -Sdeps '{:deps {antq/antq {:mvn/version "RELEASE"}}}')
 FORMATTER="--reporter=format --error-format=\"{{name}},{{version}},{{latest-version}},{{diff-url}}\""
 UPGRADE_CMD="clojure -Sdeps '{:deps {antq/antq {:mvn/version \"RELEASE\"}}}' -m antq.core ${FORMATTER} ${EXCLUDES} ${DIRECTORIES} ${SKIPS}"
-UPGRADE_LIST=$(eval ${UPGRADE_CMD})
-UPGRADES=$(echo ${UPGRADE_LIST} | sed '/Failed to fetch/d' | sed '/Unable to fetch/d' | sed '/Logging initialized/d' | sort -u)
+UPGRADES=$(eval ${UPGRADE_CMD} | sed '/Failed to fetch/d' | sed '/Unable to fetch/d' | sed '/Logging initialized/d' | sort -u)
 UPDATE_TIME=$(date +"%Y-%m-%d-%H-%M-%S")
 
 for upgrade in $UPGRADES; do
